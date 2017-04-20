@@ -8,6 +8,8 @@ loopcount = 0
 while(loopcount < 1):
     exposure = cap.set(10, 0.05)
     ret, frame = cap.read()
+    
+    
     #imagelist = [{"image": "test_input.jpg", "range":24}]
     #frame = cv2.imread(imagelist[0]['image'])
     #cv2.imwrite('test_input.jpg', frame)
@@ -159,6 +161,7 @@ while(loopcount < 1):
     center_box = (x_center, y_center)
     print (center_box)
     
+    #theta1 = (x_max
     #for x_center in center_box:
 		#if x_center != 0:
 			

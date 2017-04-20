@@ -8,12 +8,18 @@ loopcount = 0
 while(loopcount < 1):
     exposure = cap.set(10, 0.05)
     ret, frame = cap.read()
+    
+    #rotate image
+    #img = cv2.imread(frame,0)
+    #rows, cols = img.shape
+    #M = cv2.getRotationMatrix2D((cols/2, rows/2.90,1)
+    #dst = cv2.warpAffine(frame,M,(cols,rows))
     #imagelist = [{"image": "original_image.jpg", "range":24}]
     #frame = cv2.imread(imagelist[0]['image'])
     #cv2.imwrite('original_image.jpg', frame)
     #frame = cv2.imread(entry['image'])
-    #cv2.imshow("frame", frame)
-    #cv2.waitKey(0)
+    cv2.imshow("frame", dst)
+    cv2.waitKey(0)
     
     #change color scale ot HSV
     #frame[:, :, 2] = 0
@@ -150,19 +156,20 @@ while(loopcount < 1):
     loopcount = 1
     
     
-    #pixel_h = (y_max - y_min)
-    #angle = math.atan(780/(pixel_h*d)
+    pixel_h = (y_max - y_min)
+    angle = math.atan(780/(pixel_h*d)
     #print(angle)
     
-    x_center = (x_max - x_min)/2
+    #x_center = (x_max - x_min)/2
     y_center = (y_max - y_min)/2
     center_box = (x_center, y_center)
     print (center_box)
     
     
     
-    #for x_center in center_box:
-		#if x_center != 0:
+    
+    
+		
 			
     
 		

@@ -3,12 +3,12 @@ import cv2
 
 cap = cv2.VideoCapture(0)
 #imagelist = [{"image": "/home/pi/OpencvTestPgms/FRC TEST 1.jpg", "range": 1}]
-#If geany is complaining, make sure you have all tabs or all spaces for indentation 
+#If geany is complaining, make sure you have all tabs or all spaces for indentation
 loopcount = 0
 while(loopcount < 1):
     exposure = cap.set(10, 0.05)
     ret, frame = cap.read()
-    
+
     #rotate image
     #img = cv2.imread(frame,0)
     #rows, cols = img.shape
@@ -20,10 +20,10 @@ while(loopcount < 1):
     #frame = cv2.imread(entry['image'])
     cv2.imshow("frame", dst)
     cv2.waitKey(0)
-    
+
     #change color scale ot HSV
     #frame[:, :, 2] = 0
-    #frame[:, :, 0] = 0 
+    #frame[:, :, 0] = 0
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     #cv2.imshow("hsv", hsv)
     #cv2.waitKey(0)
@@ -47,7 +47,7 @@ while(loopcount < 1):
     #sobely = cv2.Sobel(frame, cv2.CV_64F, 1, 0, ksize = 5)
     #cv2.imshow("sobely", sobely)
     #cv2.waitKey(0)
-    #show thresh image      
+    #show thresh image
     #find hough lines
 
     #maxLineGap = 500
@@ -57,8 +57,8 @@ while(loopcount < 1):
     theta_list = []
     lines = cv2.HoughLines(canny_edges, 1, np.pi/180,50)
 
-        
-        
+
+
     if lines is not None:
         print(len(lines))
         for line in lines:
@@ -68,7 +68,7 @@ while(loopcount < 1):
                 a = np.cos(theta)
                 b = np.sin(theta)
                 x0 = a*rho
-                y0 = b*rho              
+                y0 = b*rho
                 x1 = int(x0 + 1000*(-b))
                 y1 = int(y0 + 1000*(a))
                 x2 = int(x0 - 1000*(-b))
@@ -77,22 +77,22 @@ while(loopcount < 1):
                 print(" a     b    x0   y0   x1   y1   x2   y2")
                 print(a,b ,x0, y0, x1,y1,x2,y2)
                 print("================================")
-                #cv2.line(frame,(x1,y1),(x2,y2),(0,0,255),1) 
+                #cv2.line(frame,(x1,y1),(x2,y2),(0,0,255),1)
                 #cv2.imshow("lines 1", frame)
                 #cv2.waitKey(0)
 
-                
+
             theta_list.append(theta)
-            
-            print 
+
+            print
             #if (88/57.295) < theta < (92/57.295)
-            if (np.abs((theta*57.295)-90) < 4.0 ) or (np.abs((theta*57.295)-270) < 4.0) or (  (np.abs((theta*57.295)-360) < 4.0 ) or (np.abs(theta*57.295)-180)< 4.0  ):   
+            if (np.abs((theta*57.295)-90) < 4.0 ) or (np.abs((theta*57.295)-270) < 4.0) or (  (np.abs((theta*57.295)-360) < 4.0 ) or (np.abs(theta*57.295)-180)< 4.0  ):
                print ("INSIDE FIRST IF")
                # if (np.abs((theta*57.295)-90) < 4.0 ) or (np.abs((theta*57.295)-270)<4.0):
                if (np.abs(1-np.abs(b))<.1):
                     #x_list.append(theta)
                    # if (int((x1+x2)/2)):
-                        
+
                         y_list.append(int((y1+y2)/2))
                         # y_list.append(y2)
                         print ("theta is (y side)")
@@ -110,13 +110,13 @@ while(loopcount < 1):
                         #x_list.append(x2)
                         print(x_list)
                         print ("x list added ===========================================================")
-                      
+
             else:
                 print("No lines found")
                 print("theta is")
                 print (theta)
         cv2.imwrite('houghlines3.jpg', frame)
-            
+
         cv2.imshow("lines", frame)
         cv2.waitKey(0)
     else:
@@ -139,42 +139,42 @@ while(loopcount < 1):
     print ("max y ", y_max)
     print ("min x ", x_min)
     print ("min y ", y_min)
-    
+
     #cv2.line(frame,(0,y_max),(10000,y_max),(255,255,0),2)  # top line
-    #cv2.line(frame,(0,y_min),(10000,y_min),(255,255,0),2)   # bottom line 
-    #cv2.line(frame,(x_max,0),(x_max,10000),(255,255,0),2)   # right line 
+    #cv2.line(frame,(0,y_min),(10000,y_min),(255,255,0),2)   # bottom line
+    #cv2.line(frame,(x_max,0),(x_max,10000),(255,255,0),2)   # right line
     #cv2.line(frame,(x_min,0),(x_min,10000),(255,255,0),2)    # left line assuming bottom left originq
-        
+
     cv2.line(frame,(x_min,y_min),(x_max,y_min),(255,255,0),2)   # top line
-    cv2.line(frame,(x_min,y_min),(x_min,y_max),(255,255,0),2)   # bottom line 
-    cv2.line(frame,(x_min,y_max),(x_max,y_max),(255,255,0),2)   # right line 
+    cv2.line(frame,(x_min,y_min),(x_min,y_max),(255,255,0),2)   # bottom line
+    cv2.line(frame,(x_min,y_max),(x_max,y_max),(255,255,0),2)   # right line
     cv2.line(frame,(x_max,y_max),(x_max,y_min),(255,255,0),2)    # left line assuming bottom left originq
-    
+
     cv2.imshow("big_box",frame)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
     loopcount = 1
-    
-    
+
+
     pixel_h = (y_max - y_min)
-    angle = math.atan(780/(pixel_h*d)
+    angle = math.atan(780/(pixel_h*d))
     #print(angle)
-    
+
     #x_center = (x_max - x_min)/2
     y_center = (y_max - y_min)/2
     center_box = (x_center, y_center)
     print (center_box)
-    
-    
-    
-    
-    
-		
-			
-    
-		
-      
-    
+
+
+
+
+
+
+
+
+
+
+
     if cv2.waitKey(0) & 0xFF == ord('q'):
         break
 
@@ -184,7 +184,7 @@ cv2.destroyAllWindows()
 
 # yesterday I went to the store and bought some eggs. When I got home I discovered that out of the dozen eggs I purchased, 11 were in tact and
 # 1 was broken. I immediately turned around and went back to the local HEB. Upon arrival, I asked the nearest employee to talk to his manager.
-# I told the manager, "bro one of my eggs is broken, can i get a new one?" to which he replied with, "sir I am sorry for the inconvenience, here is a 
+# I told the manager, "bro one of my eggs is broken, can i get a new one?" to which he replied with, "sir I am sorry for the inconvenience, here is a
 # new free dozen of eggs" as he handed me a package.
 
 # moral of the story, don't freak out because Tom the Manager can give you a free dozen of eggs if yours break

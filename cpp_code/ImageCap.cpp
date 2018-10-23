@@ -26,12 +26,12 @@ class ImageCap
                 cout << "Error capturing image" << endl;
             }
 
-            writeImage(image);
+            writeImage(image, "capture.jpg");
         }
 
-        void writeImage(Mat image)
+        void writeImage(Mat image, String filename, String path = "./")
         {
-            bool isSuccess = imwrite("./capture.jpg", image);
+            bool isSuccess = imwrite(path + filename, image);
 
             if (!isSuccess)
             {

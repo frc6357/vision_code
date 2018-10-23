@@ -9,6 +9,10 @@ int main(int argc, char *argv[])
     ImageCap image = ImageCap(0);
     image.viewImage();
 
+    ImageManipulation thresh = ImageManipulation(imread("./test_input.jpg"));
+    thresh.threshold();
+    thresh.canny();
+    thresh.viewImage();
 
     return 0;
 }

@@ -7,7 +7,7 @@ using namespace std;
 class ImageCap
 {
     private:
-        Mat frame;
+        Mat image;
 
     public:
         ImageCap(int port)
@@ -19,14 +19,14 @@ class ImageCap
         {
             VideoCapture cap(port);
 
-            bool capSuccess = cap.read(frame);
+            bool capSuccess = cap.read(image);
 
             if (!capSuccess)
             {
                 cout << "Error capturing image" << endl;
             }
 
-            writeImage(frame);
+            writeImage(image);
         }
 
         void writeImage(Mat image)
@@ -44,14 +44,14 @@ class ImageCap
             String windowName = "Saved Image";
 
             namedWindow(windowName);
-            imshow(windowName, frame);
+            imshow(windowName, image);
             waitKey(0);
             destroyWindow(windowName);
         }
 
         Mat getImage()
         {
-            return frame;
+            return image;
         }
 
 };

@@ -36,18 +36,21 @@ class ImageManipulation
         void threshold()
         {
             Mat imgHSV;
+            int width = 10;
+            int height = 10;
+
 
             cvtColor(origImage, imgHSV, COLOR_BGR2HSV);
 
             inRange(imgHSV, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV), manipImage);
 
-            //morphological opening (remove small objects from the foreground)
-            erode(manipImage, manipImage, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
-            dilate(manipImage, manipImage, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
+            //morphological opening (remove small objects from the foreground
+            erode(manipImage, manipImage, getStructuringElement(MORPH_ELLIPSE, Size(width, height)));
+            dilate(manipImage, manipImage, getStructuringElement(MORPH_ELLIPSE, Size(width, height)));
 
             //morphological closing (fill small holes in the foreground)
-            dilate(manipImage, manipImage, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
-            erode(manipImage, manipImage, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
+            dilate(manipImage, manipImage, getStructuringElement(MORPH_ELLIPSE, Size(width, height)));
+            erode(manipImage, manipImage, getStructuringElement(MORPH_ELLIPSE, Size(width, height)));
         }
 
         void canny()
